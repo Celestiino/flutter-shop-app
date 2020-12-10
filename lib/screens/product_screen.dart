@@ -4,6 +4,7 @@ import 'package:shop_app/widgets/badge.dart';
 import '../widgets/product_grid.dart';
 import '../providers/product_provider.dart';
 import '../providers/cart.dart';
+import './cart_screen.dart';
 
 enum FilteredOption { All, Favorite }
 
@@ -37,7 +38,9 @@ class ProductOverview extends StatelessWidget {
                 color: Colors.red,
                 child: IconButton(
                   icon: Icon(Icons.shopping_cart),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, CartScreem.routeName);
+                  },
                 ),
                 value: cart.count.toString(),
               );

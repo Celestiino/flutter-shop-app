@@ -4,6 +4,7 @@ import 'screens/product_screen.dart';
 import 'screens/details_screen.dart';
 import './providers/product_provider.dart';
 import './providers/cart.dart';
+import './screens/cart_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,13 +24,16 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Shop App',
+        title: 'Flutter Shop App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: ProductOverview(),
-        routes: {'product-details': (context) => DetailProduct()},
+        routes: {
+          'product-details': (context) => DetailProduct(),
+          CartScreem.routeName: (context) => CartScreem(),
+        },
       ),
     );
   }

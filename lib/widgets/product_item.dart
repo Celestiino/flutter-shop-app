@@ -50,6 +50,8 @@ class ProductItem extends StatelessWidget {
                 trailing: IconButton(
                   icon: Icon(Icons.shopping_cart_rounded),
                   onPressed: () {
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Product add to cart")));
                     cart.addItem(
                       productId: product.id,
                       price: product.price,
