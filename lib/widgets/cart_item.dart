@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../providers/cart.dart';
 
 class CustomCartItem extends StatelessWidget {
-  CustomCartItem(
-      {this.price, this.id, this.productId, this.title, this.quantity});
+  CustomCartItem({this.price, @required this.id, this.title, this.quantity});
   final price;
   final quantity;
   final title;
-  final productId;
   final id;
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(id),
-      background: Container(
-        color: Colors.red,
-        child: Icon(
-          Icons.delete,
-          size: 40,
-          color: Colors.white,
+    return Slidable(
+      actionPane: SlidableScrollActionPane(),
+      actions: [
+        IconSlideAction(
+          caption: 'Remove Item',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () {
+            Provider.of<Cart>(context, listen: false).removeItems(id);
+            print("Removido");
+          },
         ),
-        alignment: Alignment.centerRight,
-      ),
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) {
-        Provider.of<Cart>(context, listen: false).removeItems(productId);
-      },
+      ],
       child: Card(
         child: ListTile(
           leading: CircleAvatar(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/widgets/app_drawer.dart';
 import '../providers/cart.dart';
+import '../providers/orders.dart';
 import '../widgets/cart_item.dart';
 
 class CartScreem extends StatelessWidget {
@@ -11,6 +13,7 @@ class CartScreem extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(title: Text("Your Card")),
+      drawer: AppDrawer(),
       body: Column(
         children: [
           Card(
@@ -37,7 +40,13 @@ class CartScreem extends StatelessWidget {
                     ),
                     backgroundColor: Colors.purple,
                   ),
-                  FlatButton(onPressed: () {}, child: Text("ORDER NOW"))
+                  FlatButton(
+                      onPressed: () {
+                        Provider.of<Orders>(context, listen: false).addOrder(
+                            cart.items.values.toList(), cart.totalAmount);
+                        cart.clear();
+                      },
+                      child: Text("ORDER NOW"))
                 ],
               ),
             ),
@@ -50,7 +59,7 @@ class CartScreem extends StatelessWidget {
               itemCount: cart.items.length,
               itemBuilder: (context, i) {
                 return CustomCartItem(
-                    productId: cart.items.values.toList()[i].title,
+                    id: cart.items.values.toList()[i].id,
                     title: cart.items.values.toList()[i].title,
                     price: cart.items.values.toList()[i].price,
                     quantity: cart.items.values.toList()[i].quantity);
