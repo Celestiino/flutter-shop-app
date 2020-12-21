@@ -19,8 +19,31 @@ class CustomCartItem extends StatelessWidget {
           color: Colors.red,
           icon: Icons.delete,
           onTap: () {
-            Provider.of<Cart>(context, listen: false).removeItems(id);
-            print("Removido");
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Tem Certeza?"),
+                  content: Text('Que deseja excluir o produto?,'),
+                  actions: [
+                    FlatButton(
+                      child: Text('Não'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                      child: Text('Sim'),
+                      onPressed: () {
+                        Provider.of<Cart>(context, listen: false)
+                            .removeItems(id);
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              },
+            );
           },
         ),
       ],
